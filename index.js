@@ -149,7 +149,7 @@ let git = {
 }
 
 const setCwd = (pid) => {
-    exec(`lsof -p ${pid} | awk '$4=="cwd"' | tr -s ' ' | cut -d ' ' -f9-`, (err, stdout) => {
+    exec(`lsof -p ${pid} | awk '$4=="cwd"' | tr -s ' ' | cut -d ' ' -f9- | sed -e 's/([^()]*)//g'`, (err, stdout) => {
         cwd = stdout.trim();
         setGit(cwd);
     });
